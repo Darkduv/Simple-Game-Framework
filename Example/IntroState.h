@@ -42,9 +42,9 @@ public:
     virtual void Pause();
     virtual void Resume();
     
-    virtual void HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event const& evt);
-    virtual void Update(sgf::Game* game, sf::Time const& elapsed);
-    virtual void Draw(sgf::Game *,sf::RenderWindow& window);
+    virtual void HandleEvents(sgf::Game& game,sf::RenderWindow& window, sf::Event const& evt);
+    virtual void Update(sgf::Game& game, sf::Time const& elapsed);
+    virtual void Draw(sgf::Game& game,sf::RenderWindow& window);
     
 protected:
     

@@ -11,13 +11,13 @@
 
 GameState::GameState(sgf::StateManager& stateMng): sgf::IState(stateMng), text(), font()
 {
-    font.loadFromFile("font.ttf");
+    font.loadFromFile("media/font/font.ttf");
     
     text.setFont(font);
     
     text.setString("GameState");
     
-    text.setCharacterSize(24);
+    text.setCharacterSize(40);
 }
 
 void GameState::Init()
@@ -39,7 +39,7 @@ void GameState::Resume()
 }
 
 
-void GameState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event const& evt)
+void GameState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
@@ -50,7 +50,7 @@ void GameState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event con
             switch (evt.key.code)
             {
             case sf::Keyboard::P:
-                PushState(std::unique_ptr<PauseState>(new PauseState(_stateMng)));
+                PushState(std::make_unique<PauseState>(_stateMng));
                 break;
             case sf::Keyboard::Escape:
                 window.close();
@@ -63,10 +63,10 @@ void GameState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event con
         break;
     }
 }
-void GameState::Update(sgf::Game* game, sf::Time const& elapsed)
+void GameState::Update(sgf::Game &game, sf::Time const& elapsed)
 {
 }
-void GameState::Draw(sgf::Game *,sf::RenderWindow& window)
+void GameState::Draw(sgf::Game &game,sf::RenderWindow& window)
 {
     window.draw(text);
 }

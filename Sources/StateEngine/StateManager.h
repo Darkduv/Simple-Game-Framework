@@ -33,9 +33,9 @@ namespace sgf
         void PopState();
         void PopAndPush(StatePtr&& state); // will take the ownership of the given State
     
-        void HandleEvents(sgf::Game* game, sf::RenderWindow& window, const sf::Event &evt);
-        void Update(sgf::Game* game, const sf::Time &elapsed);
-        void Draw(sgf::Game* game, sf::RenderWindow& window);
+        void HandleEvents(sgf::Game& game, sf::RenderWindow& window, const sf::Event &evt);
+        void Update(sgf::Game& game, const sf::Time &elapsed);
+        void Draw(sgf::Game& game, sf::RenderWindow& window);
     
     protected:
         

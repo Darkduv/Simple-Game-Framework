@@ -111,9 +111,9 @@ void IntroState::Init()
     
     world.registerEntity(entity);
     
-    auto render=sgf::make_unique<RenderSystem>(world,_window);
+    auto render=std::make_unique<RenderSystem>(world,_window);
     world.addSystem(*render);
-    auto mov=sgf::make_unique<MovementSystem>(world);
+    auto mov=std::make_unique<MovementSystem>(world);
     world.addSystem(*mov);
     
     _systems.push_back(std::move(render));
@@ -140,7 +140,7 @@ void IntroState::Resume()
 }
 
 
-void IntroState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event const& evt)
+void IntroState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
@@ -151,7 +151,7 @@ void IntroState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event co
             switch (evt.key.code)
             {
                 case sf::Keyboard::Return:
-                    ReplaceState(std::unique_ptr<GameState>(new GameState(_stateMng)));
+                    ReplaceState(std::make_unique<GameState>(_stateMng));
                 break;
                 case sf::Keyboard::Escape:
                     window.close();
@@ -175,7 +175,7 @@ void IntroState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event co
             if (jouer.collideWith(evt.mouseButton.x, evt.mouseButton.y) && jouer.getCurrentState() == sgf::gui::ButtonState::Clicked)
             {
                 jouer.setCurrentState(sgf::gui::ButtonState::Idle);
-                ReplaceState(std::unique_ptr<GameState>(new GameState(_stateMng)));
+                ReplaceState(std::make_unique<GameState>(_stateMng));
             }
             else if (quitter.collideWith(evt.mouseButton.x, evt.mouseButton.y) && quitter.getCurrentState() == sgf::gui::ButtonState::Clicked)
             {
@@ -189,13 +189,13 @@ void IntroState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event co
     }
 
 }
-void IntroState::Update(sgf::Game* game, sf::Time const& elapsed)
+void IntroState::Update(sgf::Game &game, sf::Time const& elapsed)
 {
     world.runSystems(std::forward<sf::Time const&>(elapsed));
 }
-void IntroState::Draw(sgf::Game *,sf::RenderWindow& window)
+void IntroState::Draw(sgf::Game  &game,sf::RenderWindow& window)
 {
-    //window.draw(_spriteLoader.getRessource("bckg_image" ));
+    window.draw(_spriteLoader.getRessource("bckg_image" ));
     window.draw(jouer.getCurrentSprite());
     window.draw(reglages.getCurrentSprite());
     window.draw(quitter.getCurrentSprite());

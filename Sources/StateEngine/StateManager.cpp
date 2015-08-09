@@ -57,19 +57,19 @@ void sgf::StateManager::PopAndPush(StatePtr&& state)
     PushState(std::forward<StatePtr&&>(state));
 }
 
-void sgf::StateManager::HandleEvents(sgf::Game* game, sf::RenderWindow& window, const sf::Event &evt)
+void sgf::StateManager::HandleEvents(sgf::Game& game, sf::RenderWindow& window, const sf::Event &evt)
 {
-    currentState()->HandleEvents(std::forward<sgf::Game*>(game), std::forward<sf::RenderWindow&>(window), std::forward<sf::Event const&>(evt));
+    currentState()->HandleEvents(std::forward<sgf::Game&>(game), std::forward<sf::RenderWindow&>(window), std::forward<sf::Event const&>(evt));
 }
 
-void sgf::StateManager::Update(sgf::Game* game, const sf::Time &elapsed)
+void sgf::StateManager::Update(sgf::Game& game, const sf::Time &elapsed)
 {
-    currentState()->Update(std::forward<sgf::Game*>(game), std::forward<sf::Time const&>(elapsed));
+    currentState()->Update(std::forward<sgf::Game&>(game), std::forward<sf::Time const&>(elapsed));
 }
 
-void sgf::StateManager::Draw(sgf::Game* game, sf::RenderWindow& window)
+void sgf::StateManager::Draw(sgf::Game& game, sf::RenderWindow& window)
 {
-    currentState()->Draw(std::forward<sgf::Game*>(game), std::forward<sf::RenderWindow&>(window));
+    currentState()->Draw(std::forward<sgf::Game&>(game), std::forward<sf::RenderWindow&>(window));
 }
 
 std::unique_ptr<sgf::IState>& sgf::StateManager::currentState()

@@ -11,13 +11,13 @@
 
 PauseState::PauseState(sgf::StateManager& stateMng): sgf::IState(stateMng), text(), font()
 {
-    font.loadFromFile("font.ttf");
+    font.loadFromFile("media/font/font.ttf");
     
     text.setFont(font);
     
     text.setString("PauseState");
     
-    text.setCharacterSize(24);
+    text.setCharacterSize(40);
 }
 
 void PauseState::Init()
@@ -39,7 +39,7 @@ void PauseState::Resume()
 }
 
 
-void PauseState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event const& evt)
+void PauseState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
@@ -63,10 +63,10 @@ void PauseState::HandleEvents(sgf::Game *,sf::RenderWindow& window, sf::Event co
         break;
     }
 }
-void PauseState::Update(sgf::Game* game, sf::Time const& elapsed)
+void PauseState::Update(sgf::Game &game, sf::Time const& elapsed)
 {
 }
-void PauseState::Draw(sgf::Game *,sf::RenderWindow& window)
+void PauseState::Draw(sgf::Game &game,sf::RenderWindow& window)
 {
     window.draw(text);
 }

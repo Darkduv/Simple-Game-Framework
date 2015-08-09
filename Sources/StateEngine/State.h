@@ -37,9 +37,9 @@ namespace sgf
         virtual void Pause()        = 0;
         virtual void Resume()       = 0;
     
-        virtual void HandleEvents(sgf::Game *,sf::RenderWindow& window, const sf::Event &evt)       = 0;
-        virtual void Update(sgf::Game* game, const sf::Time &elapsed)                               = 0;
-        virtual void Draw(sgf::Game *game,sf::RenderWindow& window)                                 = 0;
+        virtual void HandleEvents(sgf::Game &game,sf::RenderWindow& window, const sf::Event &evt)   = 0;
+        virtual void Update(sgf::Game &game, const sf::Time &elapsed)                               = 0;
+        virtual void Draw(sgf::Game &game,sf::RenderWindow& window)                                 = 0;
     
     protected:
         

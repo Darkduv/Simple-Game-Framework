@@ -37,14 +37,14 @@ void sgf::Game::exec()
         sf::Event event;
         while (_window.pollEvent(event))
         {
-            _stateManager.HandleEvents(this,_window, event);
+            _stateManager.HandleEvents(*this,_window, event);
         }
         
         _window.clear();
         
-        _stateManager.Update(this, clock.restart());
+        _stateManager.Update(*this, clock.restart());
         
-        _stateManager.Draw(this, _window);
+        _stateManager.Draw(*this, _window);
         
         _window.display();
         
