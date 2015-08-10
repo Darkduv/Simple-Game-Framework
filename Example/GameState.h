@@ -9,7 +9,7 @@
 #ifndef __SGF__GameState__
 #define __SGF__GameState__
 
-#include "State.h"
+#include "MyGame.h"
 #include <SFML/Graphics.hpp>
 #include "PauseState.h"
 #include "Logger.h"
@@ -21,7 +21,7 @@ class GameState: public sgf::IState
 {
 public:
     
-    GameState(sgf::StateManager& stateMng);
+    GameState(sgf::StateManager& stateMng, sgf::Game& game);
     virtual ~GameState(){}
     
     virtual void Init();
@@ -30,9 +30,9 @@ public:
     virtual void Pause();
     virtual void Resume();
     
-    virtual void HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt);
-    virtual void Update(sgf::Game &game, sf::Time const& elapsed);
-    virtual void Draw(sgf::Game &game,sf::RenderWindow& window);
+    virtual void HandleEvents(sf::Event const& evt);
+    virtual void Update(sf::Time const& elapsed);
+    virtual void Draw(sgf::Window& window);
     
 protected:
     

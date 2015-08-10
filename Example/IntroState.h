@@ -9,7 +9,7 @@
 #ifndef __SGF__IntroState__
 #define __SGF__IntroState__
 
-#include "State.h"
+#include "MyGame.h"
 #include "GameState.h"
 #include "StandardRessourceLoader.h"
 
@@ -33,7 +33,7 @@ class IntroState: public sgf::IState
 {
 public:
     
-    IntroState(sgf::StateManager& stateMng, int width, int height, sf::RenderWindow &window);
+    IntroState(sgf::StateManager& stateMng, sgf::Game& game, int width, int height);
     virtual ~IntroState(){}
     
     virtual void Init();
@@ -42,9 +42,9 @@ public:
     virtual void Pause();
     virtual void Resume();
     
-    virtual void HandleEvents(sgf::Game& game,sf::RenderWindow& window, sf::Event const& evt);
-    virtual void Update(sgf::Game& game, sf::Time const& elapsed);
-    virtual void Draw(sgf::Game& game,sf::RenderWindow& window);
+    virtual void HandleEvents(sf::Event const& evt);
+    virtual void Update(sf::Time const& elapsed);
+    virtual void Draw(sgf::Window& window);
     
 protected:
     
@@ -66,11 +66,12 @@ private:
     
     sgf::World world;
     
-    sf::RenderWindow &_window;
-    std::vector< std::unique_ptr<sgf::ISystem> > _systems;
-    
     int _width;
     int _height;
+    
+    std::vector< std::unique_ptr<sgf::ISystem> > _systems;
+    
+
     
 };
 

@@ -9,7 +9,7 @@
 #include "GameState.h"
 
 
-GameState::GameState(sgf::StateManager& stateMng): sgf::IState(stateMng), text(), font()
+GameState::GameState(sgf::StateManager& stateMng, sgf::Game &game): sgf::IState(stateMng,game), text(), font()
 {
     font.loadFromFile("media/font/font.ttf");
     
@@ -39,21 +39,21 @@ void GameState::Resume()
 }
 
 
-void GameState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
+void GameState::HandleEvents(sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
-            window.close();
+            _game.getWindow().close();
             break;
             
         case sf::Event::KeyPressed:
             switch (evt.key.code)
             {
             case sf::Keyboard::P:
-                PushState(std::make_unique<PauseState>(_stateMng));
+                PushState(std::make_unique<PauseState>(_stateMng,_game));
                 break;
             case sf::Keyboard::Escape:
-                window.close();
+                _game.getWindow().close();
                 break;
             default:
                 break;
@@ -63,10 +63,10 @@ void GameState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event
         break;
     }
 }
-void GameState::Update(sgf::Game &game, sf::Time const& elapsed)
+void GameState::Update(sf::Time const& elapsed)
 {
 }
-void GameState::Draw(sgf::Game &game,sf::RenderWindow& window)
+void GameState::Draw(sgf::Window& window)
 {
     window.draw(text);
 }

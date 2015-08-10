@@ -9,7 +9,7 @@
 #include "IntroState.h"
 #include "Utils.h"
 
-IntroState::IntroState(sgf::StateManager& stateMng, int width, int height, sf::RenderWindow &window): sgf::IState(stateMng), _texLoader("TextureLoader_IntroState"), _spriteLoader("SpriteLoader_IntroState"), _musicLoader("MusicLoader_IntroState"), music(nullptr), jouer(), quitter(), reglages(), world(), _width(width), _height(height), _window(window), _systems()
+IntroState::IntroState(sgf::StateManager& stateMng, sgf::Game& game, int width, int height): sgf::IState(stateMng, game), _texLoader("TextureLoader_IntroState"), _spriteLoader("SpriteLoader_IntroState"), _musicLoader("MusicLoader_IntroState"), music(nullptr), jouer(), quitter(), reglages(), world(), _width(width), _height(height), _systems()
 {
 
 
@@ -111,7 +111,7 @@ void IntroState::Init()
     
     world.registerEntity(entity);
     
-    auto render=std::make_unique<RenderSystem>(world,_window);
+    auto render=std::make_unique<RenderSystem>(world,_game.getWindow());
     world.addSystem(*render);
     auto mov=std::make_unique<MovementSystem>(world);
     world.addSystem(*mov);
@@ -140,21 +140,21 @@ void IntroState::Resume()
 }
 
 
-void IntroState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
+void IntroState::HandleEvents(sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
-            window.close();
+            _game.getWindow().close();
         break;
             
         case sf::Event::KeyPressed:
             switch (evt.key.code)
             {
                 case sf::Keyboard::Return:
-                    ReplaceState(std::make_unique<GameState>(_stateMng));
+                    ReplaceState(std::make_unique<GameState>(_stateMng,_game));
                 break;
                 case sf::Keyboard::Escape:
-                    window.close();
+                    _game.getWindow().close();
                 break;
                 default:
                 break;
@@ -175,12 +175,12 @@ void IntroState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Even
             if (jouer.collideWith(evt.mouseButton.x, evt.mouseButton.y) && jouer.getCurrentState() == sgf::gui::ButtonState::Clicked)
             {
                 jouer.setCurrentState(sgf::gui::ButtonState::Idle);
-                ReplaceState(std::make_unique<GameState>(_stateMng));
+                ReplaceState(std::make_unique<GameState>(_stateMng,_game));
             }
             else if (quitter.collideWith(evt.mouseButton.x, evt.mouseButton.y) && quitter.getCurrentState() == sgf::gui::ButtonState::Clicked)
             {
                 quitter.setCurrentState(sgf::gui::ButtonState::Idle);
-                window.close();
+                _game.getWindow().close();
             }
             break;
 
@@ -189,17 +189,17 @@ void IntroState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Even
     }
 
 }
-void IntroState::Update(sgf::Game &game, sf::Time const& elapsed)
+void IntroState::Update(sf::Time const& elapsed)
 {
     world.runSystems(std::forward<sf::Time const&>(elapsed));
 }
-void IntroState::Draw(sgf::Game  &game,sf::RenderWindow& window)
+void IntroState::Draw(sgf::Window& window)
 {
-    window.draw(_spriteLoader.getRessource("bckg_image" ));
-    window.draw(jouer.getCurrentSprite());
-    window.draw(reglages.getCurrentSprite());
-    window.draw(quitter.getCurrentSprite());
-    window.draw(_spriteLoader.getRessource("gui_title" ));
+    window.draw(_spriteLoader.getRessource("bckg_image" ),sgf::Layer::Background);
+    window.draw(jouer.getCurrentSprite(),sgf::Layer::Foreground);
+    window.draw(reglages.getCurrentSprite(),sgf::Layer::Foreground);
+    window.draw(quitter.getCurrentSprite(),sgf::Layer::Foreground);
+    window.draw(_spriteLoader.getRessource("gui_title" ),sgf::Layer::Foreground);
   
 }
 

@@ -20,7 +20,7 @@ class MyGame : public sgf::Game
     
 public:
     
-    MyGame(const std::string& title, int width, int height, unsigned int style = sf::Style::Default);
+    MyGame(const std::string& title, unsigned int width, unsigned int height, unsigned int style = sf::Style::Default);
     
     virtual ~MyGame();
     

@@ -9,7 +9,7 @@
 #include "PauseState.h"
 
 
-PauseState::PauseState(sgf::StateManager& stateMng): sgf::IState(stateMng), text(), font()
+PauseState::PauseState(sgf::StateManager& stateMng,sgf::Game& game): sgf::IState(stateMng,game), text(), font()
 {
     font.loadFromFile("media/font/font.ttf");
     
@@ -39,11 +39,11 @@ void PauseState::Resume()
 }
 
 
-void PauseState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Event const& evt)
+void PauseState::HandleEvents(sf::Event const& evt)
 {
     switch (evt.type) {
         case sf::Event::Closed:
-            window.close();
+            _game.getWindow().close();
             break;
             
         case sf::Event::KeyPressed:
@@ -53,7 +53,7 @@ void PauseState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Even
                 PopState();
                 break;
             case sf::Keyboard::Escape:
-                window.close();
+                _game.getWindow().close();
                 break;
             default:
             break;
@@ -63,10 +63,10 @@ void PauseState::HandleEvents(sgf::Game &game,sf::RenderWindow& window, sf::Even
         break;
     }
 }
-void PauseState::Update(sgf::Game &game, sf::Time const& elapsed)
+void PauseState::Update(sf::Time const& elapsed)
 {
 }
-void PauseState::Draw(sgf::Game &game,sf::RenderWindow& window)
+void PauseState::Draw(sgf::Window& window)
 {
     window.draw(text);
 }

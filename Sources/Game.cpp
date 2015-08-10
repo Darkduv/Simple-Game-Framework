@@ -9,15 +9,13 @@
 #include "Game.h"
 
 
-sgf::Game::Game(const std::string& title, int width, int height, unsigned int style) : _window(sf::VideoMode(width,height),title, style), _stateManager()
-{
-}
+sgf::Game::Game(const std::string& title, unsigned int width, unsigned int height, unsigned int style) : _stateManager(), _window(title,width,height,style)
+{}
 
 sgf::Game::~Game()
-{
-}
+{}
 
-sf::RenderWindow& sgf::Game::getWindow()
+sgf::Window& sgf::Game::getWindow()
 {
     return _window;
 }
@@ -37,14 +35,15 @@ void sgf::Game::exec()
         sf::Event event;
         while (_window.pollEvent(event))
         {
-            _stateManager.HandleEvents(*this,_window, event);
+            _stateManager.HandleEvents(event);
         }
         
+        
+        _stateManager.Update(clock.restart());
+        
+        _stateManager.Draw(_window);
+        
         _window.clear();
-        
-        _stateManager.Update(*this, clock.restart());
-        
-        _stateManager.Draw(*this, _window);
         
         _window.display();
         

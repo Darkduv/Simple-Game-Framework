@@ -10,6 +10,7 @@
 #define __SGF__Game__
 
 #include <SFML/Graphics.hpp>
+#include "Window.h"
 #include "Logger.h"
 #include "Exception.h"
 #include "Utils.h"
@@ -23,13 +24,13 @@ namespace sgf {
         
     public :
         
-        Game(const std::string& title, int width, int height, unsigned int style = sf::Style::Default);
+        Game(const std::string& title, unsigned int width, unsigned int height, unsigned int style = sf::Style::Default);
     
         virtual ~Game();
     
         void exec();
     
-        sf::RenderWindow& getWindow();
+        sgf::Window& getWindow();
     
     protected :
     
@@ -39,10 +40,10 @@ namespace sgf {
     
         virtual void unload() = 0; //Will be called after leaving the main loop in exec()
 
-    
-        sf::RenderWindow _window;
-    
+        
         sgf::StateManager _stateManager;
+        
+        sgf::Window _window;
     
     };
     
