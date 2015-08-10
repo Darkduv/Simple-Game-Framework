@@ -8,11 +8,11 @@
 
 #include "MyGame.h"
 
-MyGame::MyGame(const std::string& title, int width, int height, unsigned int style) :
+MyGame::MyGame(const std::string& title, unsigned int width, unsigned int height, unsigned int style) :
                 sgf::Game(title, width, height, style), _width(width), _height(height)
 
 {
-    _stateManager.PushState(std::make_unique<IntroState>(_stateManager, _width, _height, getWindow()));
+    _stateManager.PushState(std::make_unique<IntroState>(_stateManager, *this, _width, _height));
 }
 
 MyGame::~MyGame()

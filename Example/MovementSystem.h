@@ -44,7 +44,7 @@ class RenderSystem : public sgf::System<PositionComponent,CircleShapeComponent>
 {
     
 public:
-    RenderSystem(sgf::World &world, sf::RenderWindow& window): sgf::System<PositionComponent,CircleShapeComponent>(world), _window(window)
+    RenderSystem(sgf::World &world, sgf::Window& window): sgf::System<PositionComponent,CircleShapeComponent>(world), _window(window)
     {}
     void run(sf::Time const& elapsed) override
     {
@@ -62,7 +62,7 @@ public:
     }
     
 private:
-    sf::RenderWindow& _window;
+    sgf::Window& _window;
     
 };
 

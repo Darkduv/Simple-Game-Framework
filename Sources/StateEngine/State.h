@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include "Window.h"
 
 
 
@@ -25,7 +26,7 @@ namespace sgf
     {
     public:
         
-        IState(StateManager& stateMng): _stateMng(stateMng){}
+        IState(StateManager& stateMng, Game& game): _stateMng(stateMng), _game(game){}
         IState(const IState& rhs) = delete;
         void operator=(const IState& rhs) = delete;
         
@@ -37,9 +38,9 @@ namespace sgf
         virtual void Pause()        = 0;
         virtual void Resume()       = 0;
     
-        virtual void HandleEvents(sgf::Game &game,sf::RenderWindow& window, const sf::Event &evt)   = 0;
-        virtual void Update(sgf::Game &game, const sf::Time &elapsed)                               = 0;
-        virtual void Draw(sgf::Game &game,sf::RenderWindow& window)                                 = 0;
+        virtual void HandleEvents(const sf::Event &evt)         = 0;
+        virtual void Update(const sf::Time &elapsed)            = 0;
+        virtual void Draw(sgf::Window& window)                  = 0;
     
     protected:
         
@@ -47,6 +48,7 @@ namespace sgf
         void ReplaceState(std::unique_ptr<sgf::IState>&& state);
         void PopState();
         StateManager& _stateMng;
+        Game &_game;
 
     
     };
