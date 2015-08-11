@@ -56,7 +56,7 @@ namespace sgf
     public:
         ISystem(sgf::World& world) : _world(world) {}
         virtual ~ISystem()                                  = default;
-        virtual void run(const sf::Time &elapsed)           = 0;
+        virtual void run(float elapsed)                     = 0;
         virtual void registerEntity(sgf::Entity &entity)    = 0;
         virtual bool isWatchable(sgf::Entity &entity)       = 0;
         
@@ -72,7 +72,7 @@ namespace sgf
     public:
         System(sgf::World& world): ISystem(world), _watchedEntity() {}
         virtual ~System() = default;
-        virtual void run(const sf::Time &elapsed)           = 0;
+        virtual void run(float elapsed)                     = 0;
         virtual bool isWatchable(sgf::Entity &entity)
         {
             for (auto &i : _typeWatched)

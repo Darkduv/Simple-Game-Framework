@@ -21,7 +21,7 @@ void sgf::World::removeAllSystems()
     _systemCount = 0;
 }
 
-void sgf::World::runSystems(const sf::Time &elapsed)
+void sgf::World::runSystems(const float elapsed)
 {
     for (auto it=_systems.begin(); it!=_systems.end(); it++)
     {

@@ -189,9 +189,9 @@ void IntroState::HandleEvents(sf::Event const& evt)
     }
 
 }
-void IntroState::Update(sf::Time const& elapsed)
+void IntroState::Update(float elapsed)
 {
-    world.runSystems(std::forward<sf::Time const&>(elapsed));
+    world.runSystems(elapsed);
 }
 void IntroState::Draw(sgf::Window& window)
 {

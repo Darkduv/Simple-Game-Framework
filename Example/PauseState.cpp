@@ -63,7 +63,7 @@ void PauseState::HandleEvents(sf::Event const& evt)
         break;
     }
 }
-void PauseState::Update(sf::Time const& elapsed)
+void PauseState::Update(float elapsed)
 {
 }
 void PauseState::Draw(sgf::Window& window)

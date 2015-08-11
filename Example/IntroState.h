@@ -43,7 +43,7 @@ public:
     virtual void Resume();
     
     virtual void HandleEvents(sf::Event const& evt);
-    virtual void Update(sf::Time const& elapsed);
+    virtual void Update(float elapsed);
     virtual void Draw(sgf::Window& window);
     
 protected:

@@ -21,15 +21,15 @@ class MovementSystem : public sgf::System<PositionComponent>
 public:
     MovementSystem(sgf::World &world): sgf::System<PositionComponent>(world), speed(100)
     {}
-    void run(sf::Time const& elapsed) override
+    void run(float elapsed) override
     {
-    auto time=elapsed.asSeconds();
+    ;
         for(auto it=_watchedEntity.begin(); it!=_watchedEntity.end(); it++)
         {
             auto &data= it->second.getComponent<PositionComponent>("pos")._data;
             
-            data.x+=time*speed;
-            data.y+=time*speed;
+            data.x+=elapsed*speed;
+            data.y+=elapsed*speed;
             
         }
     }
@@ -46,9 +46,8 @@ class RenderSystem : public sgf::System<PositionComponent,CircleShapeComponent>
 public:
     RenderSystem(sgf::World &world, sgf::Window& window): sgf::System<PositionComponent,CircleShapeComponent>(world), _window(window)
     {}
-    void run(sf::Time const& elapsed) override
+    void run(float elapsed) override
     {
-        auto time=elapsed.asSeconds();
     
         for(auto it=_watchedEntity.begin(); it!=_watchedEntity.end(); it++)
         {

@@ -62,9 +62,9 @@ void sgf::StateManager::HandleEvents(const sf::Event &evt)
     currentState()->HandleEvents(std::forward<sf::Event const&>(evt));
 }
 
-void sgf::StateManager::Update(const sf::Time &elapsed)
+void sgf::StateManager::Update(float elapsed)
 {
-    currentState()->Update(std::forward<sf::Time const&>(elapsed));
+    currentState()->Update(elapsed);
 }
 
 void sgf::StateManager::Draw(sgf::Window& window)

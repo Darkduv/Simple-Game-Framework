@@ -39,7 +39,7 @@ void sgf::Game::exec()
         }
         
         
-        _stateManager.Update(clock.restart());
+        _stateManager.Update(clock.restart().asSeconds());
         
         _stateManager.Draw(_window);
         

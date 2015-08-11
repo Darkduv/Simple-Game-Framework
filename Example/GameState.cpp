@@ -63,7 +63,7 @@ void GameState::HandleEvents(sf::Event const& evt)
         break;
     }
 }
-void GameState::Update(sf::Time const& elapsed)
+void GameState::Update(float elapsed)
 {
 }
 void GameState::Draw(sgf::Window& window)

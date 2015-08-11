@@ -39,7 +39,7 @@ namespace sgf
         virtual void Resume()       = 0;
     
         virtual void HandleEvents(const sf::Event &evt)         = 0;
-        virtual void Update(const sf::Time &elapsed)            = 0;
+        virtual void Update(float elapsed)                      = 0;
         virtual void Draw(sgf::Window& window)                  = 0;
     
     protected:

@@ -35,7 +35,7 @@ namespace sgf
         void PopAndPush(StatePtr&& state); // will take the ownership of the given State
     
         void HandleEvents(const sf::Event &evt);
-        void Update(const sf::Time &elapsed);
+        void Update(float elapsed);
         void Draw(sgf::Window& window);
     
     protected:
