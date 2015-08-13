@@ -9,7 +9,7 @@
 #include "IntroState.h"
 #include "Utils.h"
 
-IntroState::IntroState(sgf::StateManager& stateMng, sgf::Game& game, int width, int height): sgf::IState(stateMng, game), _texLoader("TextureLoader_IntroState"), _spriteLoader("SpriteLoader_IntroState"), _musicLoader("MusicLoader_IntroState"), music(nullptr), jouer(), quitter(), reglages(), world(), _width(width), _height(height), _systems()
+IntroState::IntroState(sgf::StateManager& stateMng, sgf::Game& game, int width, int height): sgf::IState(stateMng, game), _texLoader("TextureLoader_IntroState"), _spriteLoader("SpriteLoader_IntroState"), _musicLoader("MusicLoader_IntroState"), music(nullptr), jouer(), quitter(), reglages(), world(), _width(width), _height(height), _systems(), source()
 {
 
 
@@ -103,9 +103,8 @@ void IntroState::Init()
     }*/
     
     std::unique_ptr<sgf::Entity> entity(sgf::make_unique<sgf::Entity>(12));
-    entity->addComponent<PositionComponent>("pos", 200,200);
+    entity->addComponent<PositionComponent>("pos",Coords(200,200,100,100));
     auto circle=sf::CircleShape(150);
-    circle.setPosition(200, 200);
     circle.setFillColor(sf::Color::Red);
     entity->addComponent<CircleShapeComponent>("graph", circle);
     
@@ -115,9 +114,15 @@ void IntroState::Init()
     world.addSystem(*render);
     auto mov=std::make_unique<MovementSystem>(world);
     world.addSystem(*mov);
+    auto physics=std::make_unique<PhysicSystem>(world);
+    world.addSystem(*physics);
+    physics->addListener(*mov);
+    
+    source.addListener(*render);
     
     _systems.push_back(std::move(render));
     _systems.push_back(std::move(mov));
+    _systems.push_back(std::move(physics));
 
     
     music->play();
@@ -142,6 +147,8 @@ void IntroState::Resume()
 
 void IntroState::HandleEvents(sf::Event const& evt)
 {
+    source.dispatch(evt);
+    
     switch (evt.type) {
         case sf::Event::Closed:
             _game.getWindow().close();

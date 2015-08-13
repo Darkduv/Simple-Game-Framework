@@ -69,6 +69,8 @@ private:
     int _width;
     int _height;
     
+    MyUserEvent source;
+    
     std::vector< std::unique_ptr<sgf::ISystem> > _systems;
     
 

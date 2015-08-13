@@ -15,7 +15,13 @@
 
 using HealthComponent  = sgf::Component<unsigned int>;
 using RangeComponent = sgf::Component<unsigned int>;
-using PositionComponent = sgf::Component<sf::Vector2f>;
+struct Coords
+{
+    Coords(float xp, float yp, float xs, float ys): position(xp,yp), speed(xs,ys) {}
+    sf::Vector2f position;
+    sf::Vector2f speed;
+};
+using PositionComponent = sgf::Component<Coords>;
 using CircleShapeComponent = sgf::Component<sf::CircleShape>;
 
 
