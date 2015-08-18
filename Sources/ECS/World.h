@@ -56,7 +56,7 @@ namespace sgf
         
         void addEntityToSystem(sgf::ISystem& sys, std::unique_ptr<sgf::Entity>& entity);
         
-        void runSystems(const float elapsed);
+        void runSystems(float elapsed);
         
         void removeAllSystems();
         
