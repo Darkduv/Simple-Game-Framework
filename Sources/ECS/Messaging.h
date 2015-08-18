@@ -22,6 +22,7 @@ namespace sgf
         void unlock() {}
     };
     
+    // A MutexHolder that do synchronize, not implemented yet.
     class Synchronization
     {
     public:

@@ -20,6 +20,8 @@ enum Side
     top,bot,right,left
 };
 
+// PHYSIC EVENT //
+
 struct PhysicEventListener
 {
     virtual void bounced(sgf::Entity& entity, Side where) = 0;
@@ -34,6 +36,8 @@ struct PhysicEventContext
 
 using PhysicEventSource = sgf::Messaging<PhysicEventListener,PhysicEventContext>;
 
+// USER EVENT //
+
 struct UserEventListener
 {
     virtual void changeColor(sf::Color color) = 0;
@@ -46,6 +50,8 @@ struct UserEventContext
 };
 
 using UserEventSource = sgf::Messaging<UserEventListener,UserEventContext>;
+
+//
 
 class MovementSystem : public sgf::System<PositionComponent>, public PhysicEventListener
 {
